@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="This app spins a bottle!" />
+    <title>Spin the bottle</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <noscript>You have to activate javascript to run the app.</noscript>
+    <div class="container">
+      <div class="bottle-container" style="text-align: center">
+        <img id="bottle" src="images/bottle1.png" onClick="spin()" />
+      </div>
+    </div>
+    <script>
+      const bottle = document.getElementById("bottle");
+
+      stats = { top: 0, left: 0, down: 0, right: 0 };
+      function spin() {
+        let degrees = 0;
+
+        // randomize params
+        let speed = 5 + Math.random() * 15;
+        let noDeAccelerationTime = 300 + Math.floor(Math.random() * 700);
+        const deAccelerationFactor = 0.99;
+        const deAccelerationInterval = 5;
+
+        const i = setInterval(() => {
+          if (speed > 0.03) {
+            degrees = degrees + speed;
+            degrees = degrees > 360 ? 0 : degrees;
+          } else {
+            clearInterval(i);
+          }
+
+          bottle.style.transform = "rotate(" + degrees + "deg)";
+        }, 5);
+
+        const i2 = setInterval(() => {
+          if (speed > 0.01) {
+            speed =
+              noDeAccelerationTime > 0 ? speed : speed * deAccelerationFactor;
+          } else {
+            clearInterval(i2);
+            if (degrees < 90) {
+              stats.top++;
+            } else if (degrees < 180) {
+              stats.left++;
+            } else if (degrees < 270) {
+              stats.down++;
+            } else if (degrees < 360) {
+              stats.right++;
+            }
+          }
+        }, deAccelerationInterval);
+
+        const i3 = setInterval(() => {
+          noDeAccelerationTime > 0 ? noDeAccelerationTime-- : clearInterval(i3);
+        }, 1);
+      }
+    </script>
+  </body>
+</html>
