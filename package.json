@@ -1,0 +1,22 @@
+{
+  "name": "spin-the-bottle",
+  "version": "1.0.0",
+  "description": "Spins the bottle",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ledzappa/spin-the-bottle.git"
+  },
+  "author": "Mikael Juntti",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ledzappa/spin-the-bottle/issues"
+  },
+  "homepage": "https://github.com/ledzappa/spin-the-bottle#readme",
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.14.0"
+  }
+}

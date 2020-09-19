@@ -3,6 +3,7 @@ body {
   height: 100%;
   width: 100%;
   margin: 0;
+  overflow: hidden;
 }
 
 .container {
@@ -26,6 +27,49 @@ img {
   left: 50%;
   margin-left: -13%;
   height: 93%;
+}
+
+.alt {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+}
+
+.alt.highlight {
+  background-color: green;
+}
+
+.alt.highlight .icon {
+  color: #fff;
+}
+
+.alt-1 {
+  background-color: #ccc;
+  left: 0;
+}
+
+.alt-2 {
+  justify-content: flex-end;
+  background-color: #aaa;
+  left: 50%;
+}
+
+.icon {
+  margin: 1rem;
+  color: #555;
+  font-size: 21vw;
+}
+
+.btn-icons {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 1rem;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 1000px) {

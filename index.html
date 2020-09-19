@@ -6,19 +6,36 @@
     <meta name="description" content="This app spins a bottle!" />
     <title>Spin the bottle</title>
     <link rel="stylesheet" href="./style.css" />
+    <link
+      rel="stylesheet"
+      href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+    />
   </head>
   <body>
     <noscript>You have to activate javascript to run the app.</noscript>
     <div class="container">
+      <span class="btn-icons" onClick="setIcons()"><i class="fas fa-sync-alt"></i> Icons</i></span>
+      <span id="icons-wrapper"></span>
       <div class="bottle-container" style="text-align: center">
         <img id="bottle" src="images/bottle1.png" onClick="spin()" />
       </div>
     </div>
     <script>
+      const icons = [
+        null,
+        ["home", "glass-cheers"],
+        ["male", "female"],
+        ["beer", "wine-glass-alt"],
+      ];
       const bottle = document.getElementById("bottle");
+      let alt1;
+      let alt2;
+      const iconsWrapper = document.getElementById("icons-wrapper");
+      let iconIndex = 0;
+      let i1, i2, i3;
 
-      stats = { top: 0, left: 0, down: 0, right: 0 };
       function spin() {
+        resetState();
         let degrees = 0;
 
         // randomize params
@@ -27,7 +44,7 @@
         const deAccelerationFactor = 0.99;
         const deAccelerationInterval = 5;
 
-        const i = setInterval(() => {
+        i = setInterval(() => {
           if (speed > 0.03) {
             degrees = degrees + speed;
             degrees = degrees > 360 ? 0 : degrees;
@@ -38,28 +55,41 @@
           bottle.style.transform = "rotate(" + degrees + "deg)";
         }, 5);
 
-        const i2 = setInterval(() => {
+        i2 = setInterval(() => {
           if (speed > 0.01) {
             speed =
               noDeAccelerationTime > 0 ? speed : speed * deAccelerationFactor;
           } else {
             clearInterval(i2);
-            if (degrees < 90) {
-              stats.top++;
-            } else if (degrees < 180) {
-              stats.left++;
-            } else if (degrees < 270) {
-              stats.down++;
-            } else if (degrees < 360) {
-              stats.right++;
-            }
+            (degrees < 180 ? alt2 : alt1)?.classList.add("highlight");
           }
         }, deAccelerationInterval);
 
-        const i3 = setInterval(() => {
+        i3 = setInterval(() => {
           noDeAccelerationTime > 0 ? noDeAccelerationTime-- : clearInterval(i3);
         }, 1);
       }
+
+      const resetState = () => {
+        alt1?.classList.remove("highlight");
+        alt2?.classList.remove("highlight");
+        clearInterval(i1);
+        clearInterval(i2);
+        clearInterval(i3);
+      };
+
+      const setIcons = () => {
+        iconIndex = iconIndex !== icons.length - 1 ? iconIndex + 1 : 0;        
+        const html = iconIndex === 0 ? '' : `<div id="alt-1" class="alt alt-1">
+        <span id="icon-1" class="icon icon-1"><i class="fas fa-${icons[iconIndex][0]}"></i></span>
+        </div>
+        <div id="alt-2" class="alt alt-2">
+        <span id="icon-2" class="icon icon-2"><i class="fas fa-${icons[iconIndex][1]}"></i></span>
+        </div>`;
+        iconsWrapper.innerHTML = html;
+        alt1 = document.getElementById("alt-1");
+        alt2 = document.getElementById("alt-2");
+      };
     </script>
   </body>
 </html>
