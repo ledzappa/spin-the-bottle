@@ -15,8 +15,5 @@
   "bugs": {
     "url": "https://github.com/ledzappa/spin-the-bottle/issues"
   },
-  "homepage": "https://github.com/ledzappa/spin-the-bottle#readme",
-  "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.14.0"
-  }
+  "homepage": "https://github.com/ledzappa/spin-the-bottle#readme"
 }
