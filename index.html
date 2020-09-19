@@ -33,41 +33,46 @@
       const iconsWrapper = document.getElementById("icons-wrapper");
       let iconIndex = 0;
       let i1, i2, i3;
+      let spinning = false;
 
       function spin() {
-        resetState();
-        let degrees = 0;
-
-        // randomize params
-        let speed = 5 + Math.random() * 15;
-        let noDeAccelerationTime = 300 + Math.floor(Math.random() * 700);
-        const deAccelerationFactor = 0.99;
-        const deAccelerationInterval = 5;
-
-        i = setInterval(() => {
-          if (speed > 0.03) {
-            degrees = degrees + speed;
-            degrees = degrees > 360 ? 0 : degrees;
-          } else {
-            clearInterval(i);
-          }
-
-          bottle.style.transform = "rotate(" + degrees + "deg)";
-        }, 5);
-
-        i2 = setInterval(() => {
-          if (speed > 0.01) {
-            speed =
-              noDeAccelerationTime > 0 ? speed : speed * deAccelerationFactor;
-          } else {
-            clearInterval(i2);
-            (degrees < 180 ? alt2 : alt1)?.classList.add("highlight");
-          }
-        }, deAccelerationInterval);
-
-        i3 = setInterval(() => {
-          noDeAccelerationTime > 0 ? noDeAccelerationTime-- : clearInterval(i3);
-        }, 1);
+        if (!spinning) {
+          spinning = true;
+          resetState();
+          let degrees = 0;
+  
+          // randomize params
+          let speed = 5 + Math.random() * 15;
+          let noDeAccelerationTime = 300 + Math.floor(Math.random() * 700);
+          const deAccelerationFactor = 0.99;
+          const deAccelerationInterval = 5;
+  
+          i = setInterval(() => {
+            if (speed > 0.03) {
+              degrees = degrees + speed;
+              degrees = degrees > 360 ? 0 : degrees;
+            } else {
+              spinning = false;
+              clearInterval(i);
+            }
+  
+            bottle.style.transform = "rotate(" + degrees + "deg)";
+          }, 5);
+  
+          i2 = setInterval(() => {
+            if (speed > 0.01) {
+              speed =
+                noDeAccelerationTime > 0 ? speed : speed * deAccelerationFactor;
+            } else {
+              clearInterval(i2);
+              (degrees < 180 ? alt2 : alt1)?.classList.add("highlight");
+            }
+          }, deAccelerationInterval);
+  
+          i3 = setInterval(() => {
+            noDeAccelerationTime > 0 ? noDeAccelerationTime-- : clearInterval(i3);
+          }, 1);
+        }
       }
 
       const resetState = () => {
